@@ -1,18 +1,38 @@
-import React from 'react'
+import { useState } from "react";
 
-const ListGroup = () => {
-  return (
-  <>
-  <h1>List</h1>
-  <ul className="list-group">
-  <li className="list-group-item">An item</li>
-  <li className="list-group-item">A second item</li>
-  <li className="list-group-item">A third item</li>
-  <li className="list-group-item">A fourth item</li>
-  <li className="list-group-item">And a fifth one</li>
-</ul>
-  </>
-  )
+// Declare the component interface
+interface Props {
+  heading: string;
+  items: string[];
+  onSelect: (item: string) => void;
 }
 
-export default ListGroup  
+// Deconstruct the props so they can be used directly,
+// instead of refer to as props.heading, props.items
+const ListGroup = ({ heading, items, onSelect }: Props) => {
+  const [selected, setSelected] = useState(-1);
+
+  return (
+    <>
+      <h1>{heading}</h1>
+      <ul className="list-group">
+        {items.map((item, index) => (
+          <li
+            key={item}
+            className={
+              index === selected ? "list-group-item active" : "list-group-item"
+            }
+            onClick={() => {
+              setSelected(index);
+              onSelect(item);
+            }}
+          >
+            {item}
+          </li>
+        ))}
+      </ul>
+    </>
+  );
+};
+
+export default ListGroup;

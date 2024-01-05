@@ -1,13 +1,16 @@
-import { useState } from "react";
 import "./App.css";
 import ListGroup from "./components/ListGroup";
 
 function App() {
-  const [count, setCount] = useState(0);
+  const items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
+
+  const handleSelect = (item) => {
+    console.log(item)
+  }
 
   return (
     <>
-      <ListGroup />
+      <ListGroup heading="Cities" items={items} onSelect={handleSelect} />
     </>
   );
 }
