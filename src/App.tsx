@@ -8,11 +8,12 @@ function App() {
   const handleSelect = (item: string) => {
     console.log(item);
   };
+  
 
   return (
     <>
       <ListGroup heading="Cities" items={items} onSelect={handleSelect} />
-      <Button variant="danger" handleClick={() => console.log("Clicked")}>
+      <Button variant="primary">
         OK
       </Button>
     </>

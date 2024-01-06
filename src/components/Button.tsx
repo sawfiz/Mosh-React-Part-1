@@ -1,14 +1,26 @@
+import { useState } from "react";
+import Alert from "./Alert";
+
 interface Props {
   children: string;
   variant?: "primary" | "secondary" | "danger";
-  handleClick: () => void;
 }
 
-const Button = ({ children, variant, handleClick }: Props) => {
+const Button = ({ children, variant }: Props) => {
+  const [show, setShow] = useState(false);
+
+  const handleClick = () => { setShow(false)}
   return (
-    <button type="button" className={"btn btn-" + variant} onClick={handleClick}>
-      {children}
-    </button>
+    <>
+      {show && <Alert handleClick={handleClick} >My alert</Alert>}
+      <button
+        type="button"
+        className={"btn btn-" + variant}
+        onClick={() => setShow(true)}
+      >
+        {children}
+      </button>
+    </>
   );
 };
 
