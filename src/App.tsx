@@ -1,6 +1,7 @@
 import "./App.css";
 import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
+import Like from "./components/Like";
 
 function App() {
   const items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -8,14 +9,12 @@ function App() {
   const handleSelect = (item: string) => {
     console.log(item);
   };
-  
 
   return (
     <>
       <ListGroup heading="Cities" items={items} onSelect={handleSelect} />
-      <Button variant="primary">
-        OK
-      </Button>
+      <Button variant="primary">OK</Button>
+      <Like onClick={() => console.log("Clicked")} />
     </>
   );
 }
