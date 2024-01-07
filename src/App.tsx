@@ -1,8 +1,8 @@
-import "./App.css";
 import Button from "./components/Button";
 import ListGroup from "./components/ListGroup";
 import Like from "./components/Like";
 import ExpandableText from "./components/ExpandableText";
+import Form from "./components/Form";
 
 function App() {
   const items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
@@ -30,6 +30,7 @@ function App() {
         A consectetur, tenetur ipsum aliquid temporibus, pariatur ad sapiente
         commodi quis, magnam asperiores atque voluptatem.
       </ExpandableText>
+      <Form />
     </>
   );
 }
