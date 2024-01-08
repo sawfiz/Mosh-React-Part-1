@@ -4,11 +4,17 @@ import { useForm } from "react-hook-form";
 import { categories } from "../types";
 
 const expenseSchema = z.object({
-  description: z.string().min(3, "Description must be at least 3 characters."),
+  description: z
+    .string()
+    .min(3, "Description must be at least 3 characters.")
+    .max(50),
   amount: z
     .number({ invalid_type_error: "Amount is required." })
-    .positive("Amount must be positive."),
-  category: z.enum(categories),
+    .positive("Amount must be positive.")
+    .max(100_000),
+  category: z.enum(categories, {
+    errorMap: () => ({ message: "Category is required." }),
+  }),
 });
 
 export type ExpenseFormData = z.infer<typeof expenseSchema>;
@@ -22,7 +28,7 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors },
     reset,
   } = useForm<ExpenseFormData>({ resolver: zodResolver(expenseSchema) });
 
@@ -56,7 +62,7 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
           defaultValue=""
           {...register("category")}
         >
-          <option value="">All categories</option>
+          <option value=""></option>
           {categories.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -67,7 +73,7 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
           <p className="text-danger">{errors.category.message}</p>
         )}
       </div>
-      <button disabled={!isValid} type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary">
         Submit
       </button>
     </form>
