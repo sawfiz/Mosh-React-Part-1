@@ -22,10 +22,12 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
     register,
     handleSubmit,
     formState: { errors, isValid },
+    reset,
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: FormData) => {
     addExpense(data);
+    reset();
   };
 
   return (
