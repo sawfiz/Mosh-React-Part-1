@@ -1,9 +1,20 @@
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Category, ExpenseFormData, expenseSchema } from "../types";
+import { categories } from "../types";
+
+const expenseSchema = z.object({
+  description: z.string().min(3, "Description must be at least 3 characters."),
+  amount: z
+    .number({ invalid_type_error: "Amount is required." })
+    .positive("Amount must be positive."),
+  category: z.enum(categories),
+});
+
+export type ExpenseFormData = z.infer<typeof expenseSchema>;
 
 interface Props {
-  categories: Category[];
+  categories: string[];
   addExpense: (data: ExpenseFormData) => void;
 }
 

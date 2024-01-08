@@ -1,11 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
 import { useState } from "react";
-import { Category, Expense, ExpenseFormData } from './types.tsx';
+import { categories, Expense, ExpenseFormData } from './types.tsx';
 import ExpenseFilter from "./components/ExpenseFilter";
 import ExpenseForm from "./components/ExpenseForm";
 import ExpenseList from "./components/ExpenseList";
 
-const categories: Category[] = ["Grocery", "Utility"];
 
 const initData: Expense[] = [
   { id: uuidv4(), description: "Milk", amount: 5, category: "Grocery" },
@@ -22,7 +21,6 @@ const initData: Expense[] = [
 // - Form validation errors only show after a submit
 // - Can not right align amount in table
 // - Can not bold Total in table
-// - custom-select does not style correctly
 
 function App() {
   const [filter, setFilter] = useState("");
