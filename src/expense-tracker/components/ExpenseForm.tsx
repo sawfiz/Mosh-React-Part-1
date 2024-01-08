@@ -28,7 +28,7 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
     reset,
   } = useForm<ExpenseFormData>({ resolver: zodResolver(expenseSchema) });
 
@@ -43,6 +43,7 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
       <input
         type="text"
         className="form-control mb-2"
+        placeholder="Minimum 3 characters..."
         {...register("description")}
       />
       {errors.description && (
@@ -53,6 +54,7 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
       <input
         type="number"
         className="form-control mb-2"
+        placeholder="Required"
         {...register("amount", { valueAsNumber: true })}
       />
       {errors.amount && <p className="text-danger">{errors.amount.message}</p>}
@@ -62,7 +64,7 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
           defaultValue=""
           {...register("category")}
         >
-          <option value=""></option>
+          <option value="">-</option>
           {categories.map((category) => (
             <option key={category} value={category}>
               {category}
@@ -73,7 +75,7 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
           <p className="text-danger">{errors.category.message}</p>
         )}
       </div>
-      <button type="submit" className="btn btn-primary">
+      <button disabled={!isValid} type="submit" className="btn btn-primary">
         Submit
       </button>
     </form>
