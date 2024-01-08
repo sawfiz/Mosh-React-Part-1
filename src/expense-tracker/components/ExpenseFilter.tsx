@@ -1,4 +1,4 @@
-import { Category } from "./ExpenseForm";
+import { Category } from "../types";
 
 interface Props {
   categories: Category[];

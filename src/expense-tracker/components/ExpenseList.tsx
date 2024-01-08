@@ -1,12 +1,8 @@
-import { FormData } from "./ExpenseForm";
+import { Expense } from "./ExpenseForm";
 
 interface Props {
-  expenses: {
-    description: string;
-    amount: number;
-    category: string;
-  }[];
-  delExpense: (expense: FormData) => void;
+  expenses: Expense[];
+  delExpense: (expense: Expense) => void;
 }
 const ExpenseList = ({ expenses, delExpense }: Props) => {
   // reduce needs an initial value, 0
