@@ -8,10 +8,8 @@ interface Props {
 const ExpenseList = ({ expenses }: Props) => {
   // reduce needs an initial value, 0
   const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
-  
+
   return (
-    <div>
-      ExpenseList
       <table className="table">
         <thead className="thead-dark">
           <tr>
@@ -40,7 +38,6 @@ const ExpenseList = ({ expenses }: Props) => {
           </tr>
         </tbody>
       </table>
-    </div>
   );
 };
 
