@@ -8,7 +8,7 @@ interface Props {
 const ExpenseFilter = ({ categories, setFilter }: Props) => {
   return (
     <select
-      className="custom-select custom-select-lg mb-3"
+      className="form-select mb-3"
       defaultValue=""
       onChange={(e) => setFilter(e.target.value)}
     >

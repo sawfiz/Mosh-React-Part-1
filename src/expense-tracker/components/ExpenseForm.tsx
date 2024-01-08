@@ -41,7 +41,7 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
       {errors.amount && <p className="text-danger">{errors.amount.message}</p>}
       <div>
         <select
-          className="custom-select custom-select-lg mb-2"
+          className="form-select mb-2"
           defaultValue=""
           {...register("category")}
         >
