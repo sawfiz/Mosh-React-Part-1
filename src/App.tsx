@@ -13,6 +13,12 @@ const sample: FormData[] = [
   { description: "Electricity", amount: 100, category: "Utility" },
 ];
 
+// ! Three issues
+// - Form validation errors only show after a submit
+// - Can not right align amount in table
+// - Can not bold Total in table
+// - custom-select does not style correctly
+
 function App() {
   const [filter, setFilter] = useState("");
 

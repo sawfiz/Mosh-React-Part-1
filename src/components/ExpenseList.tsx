@@ -28,15 +28,15 @@ const ExpenseList = ({ expenses, delExpense }: Props) => {
             <tr key={index + 1}>
               <th scope="row">{index + 1}</th>
               <td>{expense.description} </td>
-              <td>{expense.amount} </td>
+              <td className="text-right">${expense.amount.toFixed(2)}</td>
               <td>{expense.category} </td>
-              <td><button className='btn btn-danger' onClick={() => delExpense(expense)}>Delete</button></td>
+              <td><button className='btn btn-outline-danger' onClick={() => delExpense(expense)}>Delete</button></td>
             </tr>
           ))}
           <tr>
             <th scope="row"></th>
             <td>Total</td>
-            <td>{total} </td>
+            <td className="text-right">${total.toFixed(2)}</td>
             <td> </td>
             <td> </td>
           </tr>
