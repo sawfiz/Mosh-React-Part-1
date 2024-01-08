@@ -11,6 +11,7 @@ const schema = z.object({
 });
 
 export type FormData = z.infer<typeof schema>;
+export type Category = "Grocery" | "Utility";
 
 interface Props {
   categories: string[];
@@ -62,8 +63,9 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
             </option>
           ))}
         </select>
-        {errors.category && <p className="text-danger">{errors.category.message}</p>}
-
+        {errors.category && (
+          <p className="text-danger">{errors.category.message}</p>
+        )}
       </div>
       <button disabled={!isValid} type="submit" className="btn btn-primary">
         Submit
