@@ -5,8 +5,8 @@ interface Props {
   delExpense: (id: string) => void;
 }
 const ExpenseList = ({ expenses, delExpense }: Props) => {
-  // reduce needs an initial value, 0
-  const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
+  // reduce, accumulator needs an initial value, 0
+  const total = expenses.reduce((acc, expense) => acc + expense.amount, 0);
 
   return (
     <table className="table">
