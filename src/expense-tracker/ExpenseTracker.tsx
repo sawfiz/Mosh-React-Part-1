@@ -45,8 +45,8 @@ function App() {
       <ExpenseFilter categories={categories} setFilter={setFilter} />
       <ExpenseList
         expenses={filteredExpenses}
-        delExpense={(expense: Expense) =>
-          setExpenses((prev) => prev.filter((item) => item.id != expense.id))
+        delExpense={(id: string) =>
+          setExpenses((prev) => prev.filter((item) => item.id != id))
         }
       />
     </>
