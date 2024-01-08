@@ -1,11 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FieldValues, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 const schema = z.object({
   description: z.string().min(3, "Description must be at least 3 characters."),
-  amount: z.number().min(0, "Amount must be positive."),
-  category: z.string(),
+  amount: z
+    .number({ invalid_type_error: "Amount is required." })
+    .positive("Amount must be positive."),
+  category: z.string().trim().min(1),
 });
 
 export type FormData = z.infer<typeof schema>;
@@ -23,11 +25,9 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
   } = useForm<FormData>({ resolver: zodResolver(schema) });
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
     addExpense(data);
   };
 
-  console.log(errors, isValid);
   return (
     <form className="mb-3" onSubmit={handleSubmit(onSubmit)}>
       <label className="form-label">Description</label>
@@ -60,6 +60,8 @@ const ExpenseForm = ({ categories, addExpense }: Props) => {
             </option>
           ))}
         </select>
+        {errors.category && <p className="text-danger">{errors.category.message}</p>}
+
       </div>
       <button disabled={!isValid} type="submit" className="btn btn-primary">
         Submit

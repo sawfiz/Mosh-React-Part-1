@@ -1,11 +1,14 @@
+import { FormData } from "./ExpenseForm";
+
 interface Props {
   expenses: {
     description: string;
     amount: number;
     category: string;
   }[];
+  delExpense: (expense: FormData) => void;
 }
-const ExpenseList = ({ expenses }: Props) => {
+const ExpenseList = ({ expenses, delExpense }: Props) => {
   // reduce needs an initial value, 0
   const total = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
@@ -17,6 +20,7 @@ const ExpenseList = ({ expenses }: Props) => {
             <th scope="col">Description</th>
             <th scope="col">Amount</th>
             <th scope="col">Category</th>
+            <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
@@ -26,7 +30,7 @@ const ExpenseList = ({ expenses }: Props) => {
               <td>{expense.description} </td>
               <td>{expense.amount} </td>
               <td>{expense.category} </td>
-              <td>Delete</td>
+              <td><button className='btn btn-danger' onClick={() => delExpense(expense)}>Delete</button></td>
             </tr>
           ))}
           <tr>

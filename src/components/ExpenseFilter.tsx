@@ -1,5 +1,7 @@
+import { Category } from "./ExpenseForm";
+
 interface Props {
-  categories: string[];
+  categories: Category[];
   setFilter: (category: string) => void;
 }
 
