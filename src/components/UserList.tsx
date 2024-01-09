@@ -10,7 +10,7 @@ const UserList = () => {
   useEffect(() => {
     setLoading(true);
 
-    const { request, cancel } = userService.getAllUsers();
+    const { request, cancel } = userService.getAll<User>();
     request
       .then((res) => {
         setUsers(res.data);
@@ -35,7 +35,7 @@ const UserList = () => {
     setUsers(users.filter((u) => u.id != user.id));
 
     //API call
-    userService.deleteUser(user.id).catch((err) => {
+    userService.delete(user.id).catch((err) => {
       // On error, keep the original Users list
       setUsers(originalUsers);
       setError(err.message);
@@ -50,7 +50,7 @@ const UserList = () => {
 
     // API call
     userService
-      .addUser(newUser)
+      .create(newUser)
       // .then((res) => setUsers([...users, res.data]))
       // deconstruct res.data, and assign it a name newUser
       .then(({ data: newUser }) => setUsers([...users, newUser]))
@@ -67,7 +67,7 @@ const UserList = () => {
     setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
 
     // API call
-    userService.updateUser(updatedUser).catch((err) => {
+    userService.update(updatedUser).catch((err) => {
       setUsers(originalUsers);
       setError(err.message);
     });

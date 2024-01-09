@@ -27,7 +27,7 @@ class HttpService {
     return apiClient.post(this.endpoint, entity);
   }
 
-  updateUser<T extends Entity>(entity: T) {
+  update<T extends Entity>(entity: T) {
     return apiClient.patch(this.endpoint + "/" + entity.id, entity);
   }
 }
