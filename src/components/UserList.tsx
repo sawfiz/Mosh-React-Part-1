@@ -1,33 +1,8 @@
-import { useEffect, useState } from "react";
-import { CanceledError } from "../services/api-client.ts";
+import useUsers from "../hooks/useUsers.ts";
 import userService, { User } from "../services/user-service";
 
 const UserList = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [error, setError] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setLoading(true);
-
-    const { request, cancel } = userService.getAll<User>();
-    request
-      .then((res) => {
-        setUsers(res.data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        // Removes the error in strict mode, as the component is rendered twice
-        if (err instanceof CanceledError) return;
-        setError(err.message);
-        setLoading(false);
-      });
-    // .finally does not work in strict mode
-    // .finally(() => setLoading(false));
-
-    // Clean up function
-    return () => cancel();
-  }, []);
+  const { users, setUsers, error, setError, isLoading } = useUsers();
 
   const deleteUser = (user: User) => {
     // Optimistic update, render first to provide a faster UI
@@ -75,7 +50,7 @@ const UserList = () => {
 
   return (
     <div>
-      {loading && <div className="spinner-border"></div>}
+      {isLoading && <div className="spinner-border"></div>}
       <button className="btn btn-primary mb-3" onClick={addUser}>
         Add
       </button>
