@@ -7,17 +7,26 @@ interface User {
 }
 
 const UserList = () => {
-  const [users, setUsers] = useState<User[]>([])
+  const [users, setUsers] = useState<User[]>([]);
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/users")
-      .then((res) => setUsers(res.data));
+    const fetchData = async () => {
+      const res = await axios.get("https://jsonplaceholder.typicode.com/users");
+      setUsers(res.data);
+    };
+    
+    fetchData();
   }, []);
-  return <div>
-    <ul>
-      {users.map(user => <li key={user.id}>{user.id} - {user.name}</li>)}
-    </ul>
-  </div>;
+  return (
+    <div>
+      <ul>
+        {users.map((user) => (
+          <li key={user.id}>
+            {user.id} - {user.name}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 };
 
 export default UserList;
