@@ -61,10 +61,30 @@ const UserList = () => {
     // API call
     axios
       .post("https://jsonplaceholder.typicode.com/users", newUser)
-      .then((res) => setUsers([...users, res.data]))
+      // .then((res) => setUsers([...users, res.data]))
+      // deconstruct res.data, and assign it a name newUser
+      .then(({ data: newUser }) => setUsers([...users, newUser]))
       .catch((err) => {
         setUsers(originalUsers);
-        setError(err);
+        setError(err.message);
+      });
+  };
+
+  const updateUser = (user: User) => {
+    const originalUsers = users;
+    const updatedUser = { ...user, name: user.name + "!" };
+    // Optimistic update
+    setUsers(users.map((u) => (u.id === user.id ? updatedUser : u)));
+
+    // API call
+    axios
+      .patch(
+        "https://jsonplaceholder.typicode.com/users/" + user.id,
+        updatedUser
+      )
+      .catch((err) => {
+        setUsers(originalUsers);
+        setError(err.message);
       });
   };
 
@@ -81,12 +101,20 @@ const UserList = () => {
             className="list-group-item d-flex justify-content-between"
           >
             {user.name}
-            <button
-              className="btn btn-outline-danger"
-              onClick={() => deleteUser(user)}
-            >
-              Delete
-            </button>
+            <div className="d-flex gap-2">
+              <button
+                className="btn btn-secondary"
+                onClick={() => updateUser(user)}
+              >
+                Update
+              </button>
+              <button
+                className="btn btn-outline-danger"
+                onClick={() => deleteUser(user)}
+              >
+                Delete
+              </button>
+            </div>
           </li>
         ))}
       </ul>
